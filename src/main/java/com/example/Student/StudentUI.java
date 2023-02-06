@@ -1,64 +1,53 @@
 package com.example.Student;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentUI {
-    @FXML
-    private TableView<Student> studentTable;
-    @FXML
-    private TableColumn<Student, Integer> idColumn;
-    @FXML
-    private TableColumn<Student, String> firstNameColumn;
-    @FXML
-    private TableColumn<Student, String> lastNameColumn;
-    @FXML
-    private TableColumn<Student, String> emailColumn;
-    @FXML
-    private TableColumn<Student, String> phoneColumn;
-    @FXML
-    private TableColumn<Student, String> enrollmentDateColumn;
-    @FXML
-    private TableColumn<Student, String> programColumn;
+public class StudentUI implements Initializable {
+    private Parent Add, Search, Update, Delete;
+    public BorderPane MainWindow;
+    public Button SearchButton;
+    public Button AddButton;
+    public Button UpdateButton;
+    public Button DeleteButton;
 
-    private ObservableList<Student> students = FXCollections.observableArrayList();
-    private StudentService studentService;
-
-    public void initialize() throws SQLException {
-        String url = "jdbc:sqlite:C:/Users/AbdullAH Malik/IdeaProjects/AcademiaPro/src/main/resources/Database/AcademiaPro.sqlite";
-        Connection conn = DriverManager.getConnection(url);
-        studentService = new StudentService(new StudentDAOImpl(conn));
-        students.addAll(studentService.getAllStudents());
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        enrollmentDateColumn.setCellValueFactory(new PropertyValueFactory<>("enrollmentDate"));
-        programColumn.setCellValueFactory(new PropertyValueFactory<>("program"));
-        studentTable.setItems(students);
+    public void SearchPressed(ActionEvent actionEvent) {
+        MainWindow.setCenter(Search);
     }
 
-    @FXML
-    public void addStudent() {
-// Code to add a new student to the database and refresh the table
+    public void AddPressed(ActionEvent actionEvent) {
+        MainWindow.setCenter(Add);
     }
 
-    @FXML
-    public void updateStudent() {
-// Code to update a selected student in the database and refresh the table
+    public void UpdatePressed(ActionEvent actionEvent) {
+        MainWindow.setCenter(Update);
     }
 
-    @FXML
-    public void deleteStudent() {
-// Code to delete a selected student from the database and refresh the table
+    public void DeletePressed(ActionEvent actionEvent) {
+        MainWindow.setCenter(Delete);
+    }
+
+    private Parent loadScene(String sc) throws IOException {
+        return FXMLLoader.load(getClass().getResource(sc));
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            Add = loadScene("Add.fxml");
+            Update =  loadScene("Update.fxml");
+            Search =  loadScene("Search.fxml");
+            Delete =  loadScene("Delete.fxml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        };
     }
 }

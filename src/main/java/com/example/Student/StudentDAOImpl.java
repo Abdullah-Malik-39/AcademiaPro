@@ -66,7 +66,7 @@ public class StudentDAOImpl implements StudentDAO {
                 String lastName = result.getString("last_name");
                 String email = result.getString("email");
                 String phone = result.getString("phone");
-                LocalDate enrollmentDate = result.getDate("enrollment_date").toLocalDate();
+                LocalDate enrollmentDate = LocalDate.parse( result.getString("enrollment_date")) ;
                 String program = result.getString("program");
                 Student student = new Student(id, firstName, lastName, email, phone, enrollmentDate, program);
                 students.add(student);

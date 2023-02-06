@@ -1,0 +1,23 @@
+#RightBar {
+    -fx-background-color:  #3a415a;
+}
+#TopBar {
+    -fx-background-color:  #34344e;
+}
+#MainWindow {
+    -fx-background-color:  #89a7b1;
+}
+
+.button {
+    -fx-background-color: #566981;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.button:hover{
+ -fx-background-color: #89a7b1;
+}
+.button:pressed {
+    -fx-background-color: #566981;
+}
